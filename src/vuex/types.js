@@ -5,6 +5,8 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
 
 export const USERINFO_SUCCESS = "USERINFO_SUCCESS";
 
+export const BALANCE_DETAIL = "BALANCE_DETAIL";
+
 export const LOGOUT_USER = "LOGOUT_USER";
 
 export const NOTE_LIST = "NOTE_LIST";

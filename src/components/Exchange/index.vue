@@ -45,7 +45,7 @@
 </style>
 <script>
 
-    import {getUserInfo,getNoteList,deleteNote,logout, showMsg} from '../../vuex/actions'
+    import {getUserInfo,getNoteList,deleteNote,balanceChange, showMsg} from '../../vuex/actions'
     import defaultAvatar from '../../assets/images/userimg.png'
 
     export default{
@@ -54,7 +54,7 @@
                 auth:state => state.auth,
             },
             actions:{
-                showMsg
+                showMsg,balanceChange
             }
         },
         created(){
@@ -86,7 +86,12 @@
                 }
             },
             submit() {
-
+                if (this.qbNum > 0) {
+                    this.balanceChange({
+                        cookie: this.auth.cookie,
+                        number: this.qNumk
+                    })
+                }
             }
         },
         data(){

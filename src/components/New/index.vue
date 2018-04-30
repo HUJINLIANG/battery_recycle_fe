@@ -1,44 +1,46 @@
 <template>
-    <div class="new-page" :class="color">
-        <div class="new-nav">
-            <a @click="back" class="back-btn"><i class="fa fa-chevron-left"></i></a>
-            <div class="time-panel">
-                <p class="time1">{{current | formatDate1}}</p>
-                <p class="time2">{{current | formatDate2}}</p>
-            </div>
-
-            <a class="time-btn" @click="showTPanel"><i class="fa fa-clock-o"></i></a>
-            <span class="time-show">{{calltime | formatDate3}}</span>
-            <div class="setTime" v-show="showTimePanel">
-                <input class="form-controller" id="date" type="date" v-model="calltime" @change="timechange">
-            </div>
-            <a class="upload-btn" @click="showUPanel"><i class="fa fa-paperclip"></i></a>
-            <div class="setUpload" v-show="showUploadPanel">
-                <form class="uploadForm" id="uploadForm" role="form" method="post" enctype='multipart/form-data' action='javascript:;'>
-                    <input id="fulAvatar" name="files" type="file"/>
-                    <button id="btnSub" class="btn btn-success btn-xs" @click="upload">上 传</button>
-                </form>
-            </div>
-            <a class="color-btn" @click="showCPanel"><i class="fa fa-dashboard"></i></a>
-            <div class="setColor" v-show="showColorPanel">
-                <div class="color color1" :class="{selected:color=='color1'}" @click="chooseColor('color1')"></div>
-                <div class="color color2" :class="{selected:color=='color2'}" @click="chooseColor('color2')"></div>
-                <div class="color color3" :class="{selected:color=='color3'}" @click="chooseColor('color3')"></div>
-                <div class="color color4" :class="{selected:color=='color4'}" @click="chooseColor('color4')"></div>
-                <div class="color color5" :class="{selected:color=='color5'}" @click="chooseColor('color5')"></div>
-            </div>
-            <a class="save-btn" @click="save"><i class="fa fa-plus"></i></a>
+    <div>
+        <div class="qr-btn" node-type="qr-btn">扫描二维码1
+            <input node-type="jsbridge" type="file" name="myPhoto" value="扫描二维码1" />
         </div>
-        <div class="note-content" contenteditable="true">
-            {{{text}}}
+    </div>
+    <div>
+        <div class="qr-btn" node-type="qr-btn">扫描二维码2
+            <input node-type="jsbridge" type="file" name="myPhoto" value="扫描二维码2" />
         </div>
-
-
-
+    </div>
+    <div class="result-qrcode">
     </div>
 </template>
 <style>
+    .jsbridge {
+        height: 200px;
+        width: 200px;
+        background-color: red;
+    }
 
+    .upimg {
+        height: 200px;
+        width: 200px;
+        background-color: green;
+        margin-bottom: 50px;
+    }
+
+    .qr-btn{
+        width:200px;
+        height:50px;
+        background-color:#157EFB ;
+        line-height: 50px;
+        text-align: center;
+        color:#fff;
+        border-radius: 10%  10%;
+        margin-bottom:10px;
+    }
+
+    input[node-type=jsbridge]{
+        visibility: hidden;
+    }
+    #video {display: block;margin:1em auto;width:180px;height:180px;}
 </style>
 <script>
     import {addNote,showMsg} from '../../vuex/actions'
@@ -169,6 +171,9 @@
         },
         created(){
 
+        },
+        ready() {
+            Qrcode.init($('[node-type=qr-btn]'));
         }
 
     }

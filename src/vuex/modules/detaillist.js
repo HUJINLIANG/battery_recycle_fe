@@ -1,4 +1,4 @@
-import {RANK_LIST} from '../types'
+import {BALANCE_DETAIL} from '../types'
 
 const state = {
     list:[
@@ -36,7 +36,7 @@ const state = {
 };
 
 const mutations = {
-    [RANK_LIST](state,actions){
+    [BALANCE_DETAIL](state,actions){
         state.list = actions.data
     },
 }

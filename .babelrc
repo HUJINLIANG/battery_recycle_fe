@@ -1,5 +1,9 @@
 {
   "presets": ["es2015","stage-0"],
-  "plugins": ["transform-runtime"],
-  "comments": false
+  "plugins": ["transform-remove-strict-mode","transform-runtime"],
+  "comments": false,
+  "ignore": [
+    "./src/assets/js/qrcode.lib.min.js"
+  ]
 }
+

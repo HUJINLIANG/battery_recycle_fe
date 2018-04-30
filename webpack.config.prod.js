@@ -8,7 +8,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry:{
         vendor:['vue','vuex','vue-router'],
-        bundle:'./src/index'
+        bundle1:'./src/index',
+        bundle2:'./src/assets/js/qrcode.lib.min.js',
+        bundle3:'./src/assets/js/qrcode.js'
     },
     output:{
         path:path.join(__dirname,'public'),

@@ -27,20 +27,23 @@
 </style>
 <script>
 
-    import {getUserInfo,getNoteList,deleteNote,logout} from '../../vuex/actions'
-    import defaultAvatar from '../../assets/images/userimg.png'
+    import {getBalanceDetail} from '../../vuex/actions'
 
     export default{
         vuex:{
             getters:{
-                detailList:state => state.detailList.list
+                detailList:state => state.detailList.list,
+                auth:state => state.auth
             },
             actions:{
-
+                getBalanceDetail
             }
         },
         created(){
-            // 拉list数据
+            if(this.auth.token){
+                this.getBalanceDetail({cookie:this.auth.token});
+            }
+            console.log(this.auth.token)
         },
         route:{
             data(transition){

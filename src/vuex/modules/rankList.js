@@ -78,7 +78,7 @@ const state = {
 const mutations = {
     [RANK_LIST](state,actions){
         state.list = actions.data
-    },
+    }
 }
 
 export default {

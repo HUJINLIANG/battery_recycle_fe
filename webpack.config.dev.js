@@ -7,13 +7,15 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     debug:true,
-    entry:[
-        './src/index'
-    ],
+    entry: {
+        bundle1:'./src/index',
+        bundle2:'./src/assets/js/qrcode.lib.min.js',
+        bundle3:'./src/assets/js/qrcode.js'
+    },
     output:{
         path:path.join(__dirname,'public'),
         publicPath:'/',
-        filename:'bundle.js'
+        filename:'[name].js'
     },
     plugins:[
         new webpack.optimize.OccurenceOrderPlugin(),

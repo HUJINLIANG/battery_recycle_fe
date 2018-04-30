@@ -60,8 +60,8 @@
             </div>
         </div>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+
+        <button type="button" class="btn btn-primary btn-lg" @click="show">
             Launch demo modal
         </button>
 
@@ -111,8 +111,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary">确认</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" @click="cancel">取消</button>
+                        <button type="button" class="btn btn-primary" @click="done">确认</button>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
 </style>
 <script>
 
-    import {getUserInfo,getNoteList,deleteNote,logout,getRankList} from '../../vuex/actions'
+    import {getUserInfo,getNoteList,deleteNote,logout,getRankList,batteryConfirm} from '../../vuex/actions'
     import defaultAvatar from '../../assets/images/userimg.png'
 
     export default{
@@ -162,20 +162,19 @@
 
             },
             actions:{
-                getUserInfo,getNoteList,deleteNote,logout,getRankList
+                getUserInfo,getNoteList,deleteNote,logout,getRankList,batteryConfirm
             }
         },
         created(){
 
             if(this.auth.token && !this.auth.user){
-                this.getUserInfo();
+                this.getUserInfo({cookie:this.auth.token});
                 this.getRankList()
             }
             console.log(this.auth.token)
         },
         route:{
             data(transition){
-
                 transition.next()
             },
             activate(transition){
@@ -183,18 +182,31 @@
             }
         },
         methods:{
-            showDetail(nid){
-                this.$route.router.go({name:'note',params:{nid}})
+            cancel(){
+                this.batteryConfirm({
+                    cookie: this.auth.token,
+                    orderID: this.ordId,
+                    isConfirm: false
+                })
+                $('#myModal').modal('hide');
             },
-            addNote(){
-                this.$route.router.go({name:'new'})
+            done(){
+                this.batteryConfirm({
+                    cookie: this.auth.token,
+                    orderID: this.ordId,
+                    isConfirm: true
+                })
+                $('#myModal').modal('hide');
             },
-            deleteNote(id,index){
-                this.deleteNote(id,index);
+            show() {
+                $('#myModal').modal({
+                    backdrop:'static'
+                })
             }
         },
         data(){
             return {
+                ordId : '',
                 defaultAvatar:defaultAvatar
             }
         }

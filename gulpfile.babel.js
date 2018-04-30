@@ -14,8 +14,8 @@ const DEV_PORT =3000,PROD_PORT =9400;
 gulp.task('serve',function(){
     let webpackConfig = require('./webpack.config');
     let myConfig = Object.create(webpackConfig);
-    myConfig.entry.unshift('webpack/hot/only-dev-server')
-    myConfig.entry.unshift('webpack-dev-server/client?http://localhost:' + DEV_PORT)
+    // myConfig.entry.unshift('webpack/hot/only-dev-server')
+    // myConfig.entry.unshift('webpack-dev-server/client?http://localhost:' + DEV_PORT)
     new WebpackDevServer(webpack(myConfig),{
         noInfo: false,
         hot: true,

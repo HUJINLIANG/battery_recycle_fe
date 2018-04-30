@@ -24,9 +24,7 @@ const state = {
 };
 
 const mutations = {
-    // [CHANGE_LIST](state,actions){
-    //     state.items = actions.data
-    // }
+
 };
 
 export default {
