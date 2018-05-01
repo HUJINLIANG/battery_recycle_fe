@@ -4,6 +4,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 module.exports = {
     debug:true,
@@ -22,9 +23,18 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
             favicon:path.join(__dirname,'public/favicon.jpg'),
-            title:"Ez Note",
+            manifest:path.join(__dirname,'public/manifest.json'),
+            title:"RE",
             template:path.join(__dirname,'src/index.html'),
             inject:true
+        }),
+        // service worker caching
+        new SWPrecacheWebpackPlugin({
+            cacheId: 'my-vue-app',
+            filename: 'service-worker.js',
+            staticFileGlobs: ['public/**/*.{js,html,css}'],
+            minify: true,
+            stripPrefix: 'public/'
         })
     ],
     module:{
