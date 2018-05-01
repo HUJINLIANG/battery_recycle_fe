@@ -3,9 +3,15 @@
         <div class="wrap-container">
             <div class="navbar">
                 <span class="title" style="font-weight:bold; color: #FFFAFF">LE RECYCLE</span>
-                <a class="add" @click="addNote">
+                <!--<a class="add" @click="addNote">-->
+                    <!--<i class="fa fa-qrcode"></i>-->
+                <!--</a>-->
+                <div class="qr-btn" node-type="qr-btn">
                     <i class="fa fa-qrcode"></i>
-                </a>
+                    <input node-type="jsbridge" type="file" name="myPhoto" value="扫描二维码1" />
+                </div>
+                <div class="result-qrcode" style="display: none;">
+                </div>
                 <!--<a class="avatar" href="javascript:;" :title="auth.user.nickname">-->
                     <!--<img :src="auth.user.avatar || defaultAvatar">-->
                 <!--</a>-->
@@ -60,11 +66,6 @@
             </div>
         </div>
 
-
-        <button type="button" class="btn btn-primary btn-lg" @click="show">
-            Launch demo modal
-        </button>
-
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
@@ -79,35 +80,35 @@
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">0号电池</div>
-                            <div>5个</div>
+                            <div id="battery0">5个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">1号电池</div>
-                            <div>5个</div>
+                            <div id="battery1">5个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">5号电池</div>
-                            <div>5个</div>
+                            <div id="battery2">5个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">7号电池</div>
-                            <div>5个</div>
+                            <div id="battery3">5个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-circle"></i>
                             </div>
                             <div class="battery-type">纽扣电池</div>
-                            <div>5个</div>
+                            <div id="battery4">5个</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -116,6 +117,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="cookie" style="display: none;">
+            {{auth.token}}
         </div>
     </div>
 </template>
@@ -147,7 +151,34 @@
         border-top: 3px solid #4BB283;
     }
 
+    .jsbridge {
+        height: 200px;
+        width: 200px;
+        background-color: red;
+    }
 
+    .upimg {
+        height: 200px;
+        width: 200px;
+        background-color: green;
+        margin-bottom: 50px;
+    }
+
+    .qr-btn{
+        position: absolute;
+        right: 11px;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        font-size: 36px;
+        line-height: 50px;
+        color: #FFFAFF;
+        width: 26px;
+    }
+
+    input[node-type=jsbridge]{
+        visibility: hidden;
+    }
 </style>
 <script>
 
@@ -172,6 +203,9 @@
                 this.getRankList()
             }
             console.log(this.auth.token)
+        },
+        ready() {
+            Qrcode.init($('[node-type=qr-btn]'));
         },
         route:{
             data(transition){

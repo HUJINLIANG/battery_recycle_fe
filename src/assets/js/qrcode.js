@@ -59,7 +59,22 @@
                 qrcode.decode(oFREvent.target.result);
                 qrcode.callback = function(data) {
                     //得到扫码的结果
-                    $('.result-qrcode').append(data + '<br/>');
+                    $('.result-qrcode').html(data);
+                    $.ajax({
+                        type: 'POST',
+                        url: 'api.com/api/orderDetail',
+                        data: {
+                            orderID: data,
+                            cookie : $('.cookie').html().trim()
+                        },
+                        success: function (result) {
+                            //todo 操作电池内容dom
+                            $('#myModal').modal({
+                                backdrop:'static'
+                            })
+                        }
+                    })
+
                 };
             };
 
@@ -71,7 +86,6 @@
     };
 
     Qrcode.init = function(tempBtn) {
-        debugger
         var _this_ = this;
 
         tempBtn.each(function() {

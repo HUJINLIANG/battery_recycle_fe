@@ -13,34 +13,8 @@
     </div>
 </template>
 <style>
-    .jsbridge {
-        height: 200px;
-        width: 200px;
-        background-color: red;
-    }
 
-    .upimg {
-        height: 200px;
-        width: 200px;
-        background-color: green;
-        margin-bottom: 50px;
-    }
-
-    .qr-btn{
-        width:200px;
-        height:50px;
-        background-color:#157EFB ;
-        line-height: 50px;
-        text-align: center;
-        color:#fff;
-        border-radius: 10%  10%;
-        margin-bottom:10px;
-    }
-
-    input[node-type=jsbridge]{
-        visibility: hidden;
-    }
-    #video {display: block;margin:1em auto;width:180px;height:180px;}
+    /*#video {display: block;margin:1em auto;width:180px;height:180px;}*/
 </style>
 <script>
     import {addNote,showMsg} from '../../vuex/actions'
