@@ -4,7 +4,7 @@
             <div class="navbar">
                 <span class="title" style="font-weight:bold; color: #FFFAFF">积分兑换</span>
                 <a class="logout" v-link="{path:'/',activeClass:'router-active',exact: true}">
-                    <i class="fa fa-chevron-left"></i>
+                    <i class="fa fa-angle-left"></i>
                 </a>
 
             </div>
@@ -14,20 +14,24 @@
                     <img :src="defaultAvatar">
                 </a>
                 <div class="score">
-                    <div>现有积分</div>
-                    <div>{{auth.user.score || '100'}}</div>
+                    <div style="display: flex;background: rgba(255,255,255,0.3);padding: 10px 0px">
+                        <div>现有积分</div>
+                        <div>{{auth.user.score || '100'}}</div>
+                    </div>
                 </div>
                 <div class="qb">
-                    <div>本次兑换</div>
-                    <div>
-                        <i @click="add" class="add fa fa-plus"></i>
-                        <span class="qbNum">{{qbNum}}</span>
-                        <i @click="minus" class="minus fa fa-minus"></i>
+                    <div style="display: flex;background: rgba(255,255,255,0.3);padding: 10px 0px">
+                        <div>本次兑换</div>
+                        <div>
+                            <i @click="minus" class="minus fa fa-minus"></i>
+                            <span class="qbNum">{{qbNum}}</span>
+                            <i @click="add" class="add fa fa-plus"></i>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <button class="exchange-submit" @click="submit">兑换</button>
+            <button class="exchange-submit" @click="submit">确认</button>
         </div>
 
     </div>

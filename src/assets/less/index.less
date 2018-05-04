@@ -5,12 +5,21 @@ html{
   font-family:Lato, "Microsoft Jhenghei", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 }
 body{
-  background: #a8f8eb;
+  background: rgb(80,160,137);
 }
 *{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+.input-group {
+  margin: auto;
+  width: 237px;
+}
+.form-control {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  border-radius: 4px;
 }
 .vue-toast-manager_container{
   z-index: 2;
@@ -111,10 +120,13 @@ body{
   width: 325px;
   margin: auto;
   margin-bottom: 30px;
-  margin-top: 110px;
-  background: rgba(255,255,255,0.6);
+  margin-top: 55px;
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 16px;
+  min-height: 571px;
   .detail-item {
-    font-weight: 900;
+    font-weight: 600;
     font-size: 16px;
     display: flex;
     text-align: center;
@@ -133,8 +145,7 @@ body{
   width: 300px;
   margin: auto;
   margin-top: 150px;
-  margin-bottom: 30px;
-  background: rgba(255,255,255,0.6);
+  margin-bottom: -60px;
   .avatar{
     position: absolute;
     right: 50%;
@@ -153,32 +164,34 @@ body{
   .score,.qb {
     font-weight: 900;
     padding-top: 105px;
-    font-size: 20px;
+    font-size: 14px;
     display: flex;
     text-align: center;
+    color: white;
     div {
       flex: 1;
     }
   }
   .qb{
-    padding-top: 55px;
+    padding-top: 19px;
   }
   .qbNum {
-    border: 2px solid #999999;
+    border: 0px solid #999999;
     padding: 0 10px;
+    background: rgba(255,255,255,0.5);
   }
 }
 
 .exchange-submit {
-  color: #080808;
-  background-color: #DCFCF7;
+  color: white;
+  background-color: rgba(255,255,255,0.3);
   border: none;
   display: block;
-  padding: 18px 46px;
-  border-radius: 25px;
+  padding: 4px 24px;
+  /* border-radius: 25px; */
   margin: auto;
-  margin-top: 73px;
-  font-size: 20px;
+  /* margin-top: 73px; */
+  font-size: 18px;
   outline: none;
   font-weight: 600;
 }
@@ -188,7 +201,7 @@ body{
   position: absolute;
   left:0;
   right:0;
-  background: rgb(168,248,235);
+  background: rgb(80,160,137);
   .wrap-container{
     margin-top:50px;
   }
@@ -200,11 +213,11 @@ body{
   top:0;
   height:50px;
   //background: #00d8ff;
-  background: #4BB283;
+  background: rgb(80,160,137);
   border-bottom:0px solid #999999;
 
   text-align: center;
-  font-size:24px;
+  font-size:14px;
   z-index: 1;
   //opacity:0.85;
   .avatar{
@@ -602,10 +615,10 @@ body{
   bottom:0;
   left:0;
   right:0;
-  background: #eeeeee;
+  background: rgb(80,160,137);
   .loginForm{
     position: absolute;
-    top:0;
+    top:227px;
     bottom:0;
     margin:auto auto;
     left:0;
@@ -622,24 +635,25 @@ body{
   }
   .actions-container{
     position: absolute;
-    bottom:0;
-    left:0;
-    right:0;
-    height:60px;
-    background: #f7f7f7;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    height: 60px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    padding:14px;
+    padding: 14px;
     text-align: center;
-    line-height:32px;
+    line-height: 32px;
     button{
       height:32px;
       margin-top:-7px;
     }
     .btn-primary {
       color: #fff;
-      background-color: #4BB283;
+      background-color: rgb(80,160,137);
       border-color: #4BB283;
+      border: none;
+      font-size: 18px;
     }
 
   }

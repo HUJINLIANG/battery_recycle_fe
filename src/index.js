@@ -13,8 +13,8 @@ import 'font-awesome/css/font-awesome.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'vue-toast/dist/vue-toast.min.css'
 import './assets/less/index.less'
-import Mint from 'mint-ui';
-Vue.use(Mint);
+// import Mint from 'mint-ui';
+// Vue.use(Mint);
 
 require('bootstrap')
 

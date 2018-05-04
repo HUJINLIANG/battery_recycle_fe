@@ -6,7 +6,7 @@ import {getCookie} from '../../utils/authService';
 
 // 模拟登陆
 // var token = getCookie('token')
-var token = getCookie('token') || 'hjl'
+var token = getCookie('token')
 var user = {
     nickname: 'hjl',
     score :1001

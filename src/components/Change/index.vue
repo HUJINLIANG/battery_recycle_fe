@@ -4,7 +4,7 @@
             <div class="navbar">
                 <span class="title" style="font-weight:bold; color: #FFFAFF">积分详情</span>
                 <a class="logout" v-link="{path:'/',activeClass:'router-active',exact: true}">
-                    <i class="fa fa-chevron-left"></i>
+                    <i class="fa fa-angle-left"></i>
                 </a>
 
             </div>

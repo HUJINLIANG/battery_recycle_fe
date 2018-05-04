@@ -22,7 +22,7 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            favicon:path.join(__dirname,'public/favicon.jpg'),
+            favicon:path.join(__dirname,'public/icon-192.png'),
             manifest:path.join(__dirname,'public/manifest.json'),
             title:"RE",
             template:path.join(__dirname,'src/index.html'),

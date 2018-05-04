@@ -4,6 +4,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 module.exports = {
     entry:{
@@ -33,7 +34,7 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             favicon:path.join(__dirname,'public/favicon.jpg'),
-            title:"Ez Note",
+            title:"RE",
             template:path.join(__dirname,'src/index.html'),
             inject:'body',
             hash:false,    //为静态资源生成hash值
@@ -41,6 +42,14 @@ module.exports = {
                 removeComments:false,    //移除HTML中的注释
                 collapseWhitespace:true    //删除空白符与换行符
             }
+        }),
+        // service worker caching
+        new SWPrecacheWebpackPlugin({
+            cacheId: 'my-vue-app',
+            filename: 'service-worker.js',
+            staticFileGlobs: ['public/**/*.{js,html,css}'],
+            minify: true,
+            stripPrefix: 'public/'
         })
     ],
     module:{

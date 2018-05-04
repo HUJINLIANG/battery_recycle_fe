@@ -10,7 +10,7 @@ var app = new express();
 var port = process.env.PORT || 8400;
 
 app.use(express.static(path.join(__dirname,'public')));
-app.use(favicon(path.join(__dirname,'public','favicon.jpg')))
+app.use(favicon(path.join(__dirname,'public','icon-192.png')))
 
 app.get('*',function(req,res){
     return res.sendFile(__dirname + '/public/index.html')
