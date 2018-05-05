@@ -1,25 +1,73 @@
 /**
- * Created by jialao on 2016/9/16.
+ * Created by kennyhu on 2018/4.
  */
 import api from '../api'
 import * as types from './types'
+import {API_ROOT} from "../config";
 import {saveCookie,signOut } from '../utils/authService'
 
 export const localLogin = (store,userInfo) => {
-    api.localLogin(userInfo).then(response => {
-        if(!response.result === 'ok'){
-            return showMsg(store,response.msg || '登录失败')
+    $.ajax({
+        url: API_ROOT + '/login/',
+        type: 'post',
+        data: userInfo,
+        success: function (response) {
+            if(!response.result === 'ok'){
+                return showMsg(store,response.msg || '登录失败')
+            }
+            const token = response.cookie;
+            saveCookie('token',token);
+            getUserInfo(store)
+            store.dispatch(types.LOGIN_SUCCESS,{token:token});
+            showMsg(store,'登录成功','success');
+            store.router.go({path:'/'})
+        },
+        error: function (error) {
+            console.log(error)
+            return showMsg(store,error.data.error_msg || '登录失败')
         }
-        const token = response.cookie;
-        saveCookie('token',token);
-        getUserInfo(store)
-        store.dispatch(types.LOGIN_SUCCESS,{token:token});
-        showMsg(store,'登录成功','success');
-        store.router.go({path:'/'})
+    })
 
-    }).catch(error => {
-        console.log(error)
-        return showMsg(store,error.data.error_msg || '登录失败')
+
+
+    // api.localLogin(userInfo).then(response => {
+    //     if(!response.result === 'ok'){
+    //         return showMsg(store,response.msg || '登录失败')
+    //     }
+    //     const token = response.cookie;
+    //     saveCookie('token',token);
+    //     getUserInfo(store)
+    //     store.dispatch(types.LOGIN_SUCCESS,{token:token});
+    //     showMsg(store,'登录成功','success');
+    //     store.router.go({path:'/'})
+    //
+    // }).catch(error => {
+    //     console.log(error)
+    //     return showMsg(store,error.data.error_msg || '登录失败')
+    // })
+}
+
+export const signup = (store,userInfo) => {
+    $.ajax({
+        url: API_ROOT + '/register/',
+        type: 'post',
+        data: userInfo,
+        success: function (response) {
+            if(!response.result === 'ok'){
+                return showMsg(store,response.msg || '注册失败')
+            }
+            showMsg(store,'注册成功','success');
+            const token = response.cookie;
+            saveCookie('token',token);
+            getUserInfo(store)
+            store.dispatch(types.LOGIN_SUCCESS,{token:token});
+
+            store.router.go({path:'/'})
+        },
+        error: function (error) {
+            console.log(error)
+            return showMsg(store,'注册失败')
+        }
     })
 }
 
@@ -40,56 +88,126 @@ export const hideMsg = ({dispatch}) => {
 }
 
 export const getUserInfo = ({dispatch},userInfo) => {
-    api.getMe(userInfo).then(response => {
-        if(!response.result === 'ok'){
-            console.log('获取信息失败')
+    $.ajax({
+        url: API_ROOT + '/getUserInfo/',
+        type: 'post',
+        data: userInfo,
+        success: function (response) {
+            if(response.result !== 'ok'){
+                console.log('获取信息失败')
+                return ;
+            }
+            dispatch(types.USERINFO_SUCCESS,{user:response})
+        },
+        error: function (error) {
+            showMsg('获取用户资料失败')
         }
-        dispatch(types.USERINFO_SUCCESS,{user:response})
-    }).catch(response => {
-        console.log('获取用户资料失败')
     })
+    // api.getMe(userInfo).then(response => {
+    //     if(!response.result === 'ok'){
+    //         console.log('获取信息失败')
+    //     }
+    //     dispatch(types.USERINFO_SUCCESS,{user:response})
+    // }).catch(response => {
+    //     console.log('获取用户资料失败')
+    // })
 }
 
 export const getRankList = ({dispatch}) => {
-    api.getRankList().then(response => {
-        const json = response.data;
-        dispatch(types.RANK_LIST,{data:json})
-    }).catch(response => {
-        console.log('获取排名失败')
+    $.ajax({
+        url: API_ROOT + '/getRankingList/',
+        type: 'get',
+        success: function (response) {
+            const json = response.data;
+            dispatch(types.RANK_LIST,{data:json})
+        },
+        error: function (error) {
+            showMsg('获取排名失败')
+        }
     })
+    // api.getRankList().then(response => {
+    //     const json = response.data;
+    //     dispatch(types.RANK_LIST,{data:json})
+    // }).catch(response => {
+    //     console.log('获取排名失败')
+    // })
 }
 
 export const getBalanceDetail = ({dispatch},userInfo) => {
-    api.getBalanceDetail(userInfo).then(response => {
-        const json = response.data;
-        dispatch(types.BALANCE_DETAIL,{data:json})
-    }).catch(response => {
-        console.log('获取积分明细失败')
+    $.ajax({
+        url: API_ROOT + '/getBalanceDetail/',
+        type: 'post',
+        data: userInfo,
+        success: function (response) {
+            const json = response.data;
+            dispatch(types.BALANCE_DETAIL,{data:json})
+        },
+        error: function (error) {
+            showMsg('获取积分明细失败')
+        }
     })
+    // api.getBalanceDetail(userInfo).then(response => {
+    //     const json = response.data;
+    //     dispatch(types.BALANCE_DETAIL,{data:json})
+    // }).catch(response => {
+    //     console.log('获取积分明细失败')
+    // })
 }
 
 export const balanceChange = (store,changeInfo) => {
-    api.balanceChange(changeInfo).then(response => {
-        if(!response.result === 'ok'){
-            return showMsg(store,response.msg || '兑换失败')
+    $.ajax({
+        url: API_ROOT + '/balanceChange/',
+        type: 'post',
+        data: changeInfo,
+        success: function (response) {
+            if(!response.result === 'ok'){
+                return showMsg(store,response.msg || '兑换失败')
+            }
+            showMsg(store,'兑换成功','success');
+            store.router.go({path:'/'})
+        },
+        error: function (error) {
+            return showMsg(store,error.msg || '网络出错')
         }
-        showMsg(store,'兑换成功','success');
-        store.router.go({path:'/'})
-    }).catch(response => {
-        return showMsg(store,response.msg || '网络出错')
     })
+    // api.balanceChange(changeInfo).then(response => {
+    //     if(!response.result === 'ok'){
+    //         return showMsg(store,response.msg || '兑换失败')
+    //     }
+    //     showMsg(store,'兑换成功','success');
+    //     store.router.go({path:'/'})
+    // }).catch(response => {
+    //     return showMsg(store,response.msg || '网络出错')
+    // })
 }
 
 export const batteryConfirm = (store,confirmInfo,userInfo) => {
-    api.batteryConfirm(confirmInfo).then(response => {
-        if(!response.result === 'ok'){
-            return showMsg(store,'交易失败')
+    $.ajax({
+        url: API_ROOT + '/batteryConfirm/',
+        type: 'post',
+        data: confirmInfo,
+        success: function (response) {
+            if(!response.result === 'ok'){
+                return showMsg(store,'交易失败')
+            }
+            showMsg(store,'交易成功','success');
+            if (userInfo) {
+                getUserInfo(store,userInfo)
+            }
+        },
+        error: function (error) {
+            return showMsg(store,'网络出错')
         }
-        showMsg(store,'交易成功','success');
-        getUserInfo(store,userInfo)
-    }).catch(response => {
-        return showMsg(store,'网络出错')
     })
+    // api.batteryConfirm(confirmInfo).then(response => {
+    //     if(!response.result === 'ok'){
+    //         return showMsg(store,'交易失败')
+    //     }
+    //     showMsg(store,'交易成功','success');
+    //     getUserInfo(store,userInfo)
+    // }).catch(response => {
+    //     return showMsg(store,'网络出错')
+    // })
 }
 
 export const getNoteList = (store) => {

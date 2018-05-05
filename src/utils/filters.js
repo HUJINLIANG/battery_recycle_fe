@@ -1,5 +1,5 @@
 /**
- * Created by jialao on 2016/9/20.
+ * Created by kennyhu on 2018/4.
  */
 export const formatDate1 = (time) => {
     let tmpDate = new Date(time);

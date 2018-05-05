@@ -1,5 +1,5 @@
 /**
- * Created by jialao on 2016/9/16.
+ * Created by kennyhu on 2018/4.
  */
 import {NOTE_DETAIL,ADD_NOTE,DELETE_NOTE,UPDATE_NOTE} from '../types'
 

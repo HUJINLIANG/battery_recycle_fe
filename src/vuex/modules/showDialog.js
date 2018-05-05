@@ -1,5 +1,5 @@
 /**
- * Created by jialao on 2016/9/17.
+ * Created by kennyhu on 2018/4.
  */
 import {SHOW_MSG,HIDE_MSG} from '../types'
 

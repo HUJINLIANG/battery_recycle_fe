@@ -26,18 +26,18 @@
             </div>
 
             <div class="user-container">
-                <a class="avatar" href="javascript:;" :title="auth.user.nickname || 'hjl'">
-                    <img :src="defaultAvatar">
+                <a class="avatar" href="javascript:;" :title="auth.user.nickName || '匿名'">
+                    <img :src="auth.user.iconPath || defaultAvatar">
                 </a>
                 <div class="exchange-nickname">
-                    {{auth.user.nickname || 'hjl'}}
+                    {{auth.user.nickName || '匿名'}}
                 </div>
                 <!--<div class="nickname">-->
                     <!--<div>昵称</div>-->
                     <!--<div>{{auth.user.nickname || 'hjl'}}</div>-->
                 <!--</div>-->
                 <div class="qb">
-                    <div>{{auth.user.qb || 100}} Q币</div>
+                    <div>{{auth.user.qb}} Q币</div>
                     <div>
                         <a class="" v-link="{path:'/exchange',activeClass:'router-active',exact: true}">
                             兑换
@@ -72,11 +72,11 @@
                     <div>昵称</div>
                     <div>积分</div>
                 </div>
-                <div style="height: 234px;overflow: auto;">
-                    <div v-for="item in rankList" class="rankitem">
-                        <div>{{item.rank}}</div>
-                        <div>{{item.nickname}}</div>
-                        <div>{{item.score}}</div>
+                <div style="height: 200px;overflow: auto;">
+                    <div v-for="(index,item) in rankList" class="rankitem">
+                        <div>{{index+1}}</div>
+                        <div>{{item.nickName}}</div>
+                        <div>{{item.totalBalance}}</div>
                     </div>
                 </div>
                 <div class="logout-btn">
@@ -115,14 +115,14 @@
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">5号电池</div>
-                            <div id="battery2">5个</div>
+                            <div id="battery5">5个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">7号电池</div>
-                            <div id="battery3">5个</div>
+                            <div id="battery7">5个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
@@ -218,11 +218,8 @@
             }
         },
         created(){
-
-            if(this.auth.token && !this.auth.user){
-                this.getUserInfo({cookie:this.auth.token});
-                this.getRankList()
-            }
+            this.getUserInfo({cookie:this.auth.token});
+            this.getRankList()
             console.log(this.auth.token)
         },
         ready() {
@@ -250,7 +247,7 @@
                     cookie: this.auth.token,
                     orderID: this.ordId,
                     isConfirm: true
-                })
+                },{cookie:this.auth.token})
                 $('#myModal').modal('hide');
             },
             show() {

@@ -62,7 +62,7 @@
                     $('.result-qrcode').html(data);
                     $.ajax({
                         type: 'POST',
-                        url: 'api.com/api/orderDetail',
+                        url: 'http://119.29.0.196:80/2018_recycle_mini_api/orderDetail',
                         data: {
                             orderID: data,
                             cookie : $('.cookie').html().trim()

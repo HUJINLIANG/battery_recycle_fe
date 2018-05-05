@@ -1,5 +1,5 @@
 /**
- * Created by jialao on 2016/9/15.
+ * Created by kennyhu on 2018/4.
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'

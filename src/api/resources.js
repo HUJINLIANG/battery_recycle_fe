@@ -1,5 +1,5 @@
 /**
- * Created by jialao on 2016/9/16.
+ * Created by kennyhu on 2018/4.
  */
 import Vue from 'vue'
 import VueResource from 'vue-resource'
@@ -9,7 +9,7 @@ import {getCookie,signOut} from '../utils/authService'
 Vue.use(VueResource);
 
 Vue.http.options.crossOrigin = true;
-Vue.http.options.credentials = true;
+// Vue.http.options.credentials = true;
 
 Vue.http.interceptors.push((req,next) => {
     req.headers = req.headers || {};

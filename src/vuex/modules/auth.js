@@ -1,21 +1,18 @@
 /**
- * Created by jialao on 2016/9/16.
+ * Created by kennyhu on 2018/4.
  */
 import {LOGIN_SUCCESS,USERINFO_SUCCESS,LOGOUT_USER} from '../types'
 import {getCookie} from '../../utils/authService';
 
 // 模拟登陆
 // var token = getCookie('token')
-var token = getCookie('token') || 'jhl'
-var user = {
-    nickname: 'hjl',
-    score :1001
-}
+var token = getCookie('token')
+
 
 
 const state = {
     token: token || null,
-    user:user
+    user:null
 };
 
 const mutations = {

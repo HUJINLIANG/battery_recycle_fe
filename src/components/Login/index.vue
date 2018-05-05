@@ -4,10 +4,11 @@
             <!--<div class="navbar">-->
                 <!--<span class="title" style="font-weight:bold; color: #FFFAFF">LE RECYCLE</span>-->
             <!--</div>-->
-            <img :src="icon" class="login-icon">
+
             <div class="out-container">
                 <div class="login-box">
                     <div class="loginForm">
+                        <img :src="icon" class="login-icon">
                         <!--<div class="form-container">-->
                             <validator name="loginValidation">
                                 <form class="login-form form-horizontal" @submit.prevent="login($loginValidation)" novalidate>
@@ -22,7 +23,7 @@
                                         <div class="input-group">
                                             <!--<div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>-->
                                             <input style="color: #ffffff;" v-model="user.Password" v-validate:password="{required:true}"
-                                                   class="form-control" :class="[$loginValidation.password.invalid?'ng-invalid':'ng-valid']" placeholder="密码">
+                                                   type="password" class="form-control" :class="[$loginValidation.password.invalid?'ng-invalid':'ng-valid']" placeholder="密码">
                                         </div>
                                     </div>
                                     <div class="actions-container">
@@ -61,7 +62,7 @@
     .login-icon {
         vertical-align: middle;
         position: absolute;
-        top: 128px;
+        top: -134px;
         /* bottom: 0; */
         margin: auto auto;
         left: 0;
@@ -108,8 +109,6 @@
         },
         route:{
             activate(transition){
-
-
 
                 this.token?transition.redirect('/'):transition.next()
             }

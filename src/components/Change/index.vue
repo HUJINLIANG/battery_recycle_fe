@@ -12,7 +12,7 @@
             <div class="detail-container">
                 <div v-for="item in detailList" class="detail-item">
                     <div>{{item.item}}</div>
-                    <div>{{item.time}}</div>
+                    <div style="flex: 2;">{{item.time | time}}</div>
                     <div>{{item.change}}</div>
                 </div>
             </div>
@@ -39,27 +39,17 @@
                 getBalanceDetail
             }
         },
+        filters: {
+            time: function (value) {
+                return value.slice(0,10)
+            }
+        },
         created(){
             if(this.auth.token){
                 this.getBalanceDetail({cookie:this.auth.token});
             }
             console.log(this.auth.token)
-        },
-        route:{
-            data(transition){
-                transition.next()
-            },
-            activate(transition){
-                !this.auth.token?transition.redirect('/login'):transition.next()
-            }
-        },
-        methods:{
-
-        },
-        data(){
-            return {
-
-            }
         }
+
     }
 </script>

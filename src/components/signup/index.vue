@@ -6,10 +6,11 @@
                     <i class="fa fa-angle-left"></i>
                 </a>
             </div>
-            <img :src="icon" class="login-icon">
+
             <div class="out-container">
                 <div class="login-box">
                     <div class="loginForm">
+                        <img :src="icon" class="login-icon">
                         <!--<div class="form-container">-->
                         <validator name="loginValidation">
                             <form class="login-form form-horizontal" @submit.prevent="login($loginValidation)" novalidate>
@@ -17,21 +18,21 @@
                                     <div class="input-group">
                                         <!--<div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>-->
                                         <input style="color: #ffffff;" v-model="user.OpenID" v-validate:OpenID="{required:true}"
-                                               class="form-control" placeholder="QQ">
+                                               class="form-control" placeholder="用户名">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <!--<div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>-->
-                                        <input style="color: #ffffff;" v-model="user.Nickname" v-validate:nickname="{required:true}"
-                                               class="form-control" placeholder="昵称">
+                                        <input style="color: #ffffff;" v-model="user.QQ" v-validate:QQ="{required:true}"
+                                               class="form-control" placeholder="QQ">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <!--<div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>-->
-                                        <input style="color: #ffffff;" v-model="user.Password" v-validate:password="{required:true}"
-                                               class="form-control" :class="[$loginValidation.password.invalid?'ng-invalid':'ng-valid']" placeholder="密码">
+                                        <input style="color: #ffffff;" v-model="user.Password" v-validate:Password="{required:true}"
+                                               type="password" class="form-control" :class="[$loginValidation.password.invalid?'ng-invalid':'ng-valid']" placeholder="密码">
                                     </div>
                                 </div>
                                 <div id="signin-container" class="actions-container">
@@ -62,7 +63,7 @@
     .login-icon {
         vertical-align: middle;
         position: absolute;
-        top: 128px;
+        top: -134px;
         /* bottom: 0; */
         margin: auto auto;
         left: 0;
@@ -73,7 +74,7 @@
     }
 </style>
 <script>
-    import {localLogin} from '../../vuex/actions'
+    import {signup,showMsg} from '../../vuex/actions'
     import icon from '../../assets/images/icon-191.png'
     export default {
         el(){
@@ -87,7 +88,7 @@
 
             },
             actions:{
-                localLogin
+                signup,showMsg
             }
         },
         validators:{
@@ -101,7 +102,7 @@
                 user: {
                     OpenID: '',
                     Password: '',
-                    Nickname: ''
+                    QQ: ''
                 },
                 icon
             }
@@ -115,7 +116,15 @@
         methods:{
             login(loginValidation){
                 if(loginValidation.valid){
-                    this.localLogin(this.user)
+                    if(!/^[1-9]\d{4,10}$/.test(this.user.QQ)) {
+                        this.showMsg('QQ号格式错误');
+                        return ;
+                    }
+                    if (!/^[0-9a-zA-Z]+$/.test(this.user.OpenID)) {
+                        this.showMsg('用户名只能包含数字和字母');
+                        return ;
+                    }
+                    this.signup(this.user)
                 }
             }
         },

@@ -2,35 +2,6 @@ import {BALANCE_DETAIL} from '../types'
 
 const state = {
     list:[
-        {
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },{
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },{
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },{
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },{
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },{
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },{
-            item:'兑换',
-            time:'20160712',
-            change: '+100'
-        },
 
     ]
 };
