@@ -6,13 +6,20 @@
                 <a class="logout" v-link="{path:'/',activeClass:'router-active',exact: true}">
                     <i class="fa fa-angle-left"></i>
                 </a>
-
+                <div class="exchange-rule">
+                    <a class="" v-link="{path:'/rule',activeClass:'router-active',exact: true}">
+                        规则说明
+                    </a>
+                </div>
             </div>
 
             <div class="exchange-container">
                 <a class="avatar" href="javascript:;" :title="auth.user.nickname || 'hjl'">
                     <img :src="defaultAvatar">
                 </a>
+                <div class="exchange-nickname">
+                    {{auth.user.nickname || 'hjl'}}
+                </div>
                 <div class="score">
                     <div style="display: flex;background: rgba(255,255,255,0.3);padding: 10px 0px">
                         <div>现有积分</div>

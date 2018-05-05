@@ -21,13 +21,13 @@ export default function(router){
             name:'exchange',
             component:require('./components/exchange/index.vue'),
         },
-        '/note/:nid':{
-            name:'note',
-            component:require('./components/Note/index.vue')
+        '/rule':{
+            name:'exchangerule',
+            component:require('./components/exchangerule/index.vue')
         },
-        '/new':{
-            name:'new',
-            component:require('./components/New/index.vue')
+        '/signup':{
+            name:'signup',
+            component:require('./components/signup/index.vue')
         },
         '*': {
             name:'nofound',

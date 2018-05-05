@@ -2,12 +2,12 @@
     <div class="out-container">
         <div class="wrap-container">
             <div class="navbar">
-                <span class="title" style="font-weight:bold; color: #FFFAFF">LE RECYCLE</span>
+                <!--<span class="title" style="font-weight:bold; color: #FFFAFF">LE RECYCLE</span>-->
                 <!--<a class="add" @click="addNote">-->
                     <!--<i class="fa fa-qrcode"></i>-->
                 <!--</a>-->
                 <div class="qr-btn" node-type="qr-btn">
-                    <i class="fa fa-qrcode"></i>
+                    扫一扫
                     <input node-type="jsbridge" type="file" name="myPhoto" value="扫描二维码1" />
                 </div>
                 <div class="result-qrcode" style="display: none;">
@@ -15,53 +15,74 @@
                 <!--<a class="avatar" href="javascript:;" :title="auth.user.nickname">-->
                     <!--<img :src="auth.user.avatar || defaultAvatar">-->
                 <!--</a>-->
-                <a class="logout" href="javascript:;" @click="logout" title="退出登录">
-                    <i class="fa fa-sign-out"></i>
-                </a>
-
+                <!--<a class="logout" href="javascript:;" @click="logout" title="退出登录">-->
+                    <!--<i class="fa fa-sign-out"></i>-->
+                <!--</a>-->
+                <div class="score-detail">
+                    <a class="" v-link="{path:'/detail',activeClass:'router-active',exact: true}">
+                        积分明细
+                    </a>
+                </div>
             </div>
 
             <div class="user-container">
                 <a class="avatar" href="javascript:;" :title="auth.user.nickname || 'hjl'">
                     <img :src="defaultAvatar">
                 </a>
-                <div class="nickname">
-                    <div>昵称</div>
-                    <div>{{auth.user.nickname || 'hjl'}}</div>
+                <div class="exchange-nickname">
+                    {{auth.user.nickname || 'hjl'}}
                 </div>
+                <!--<div class="nickname">-->
+                    <!--<div>昵称</div>-->
+                    <!--<div>{{auth.user.nickname || 'hjl'}}</div>-->
+                <!--</div>-->
                 <div class="qb">
-                    <div>已兑QB</div>
-                    <div>{{auth.user.qb || 100}}</div>
-                </div>
-                <div class="score">
-                    <div style="text-align: left;">积分</div>
-                    <div>{{auth.user.score || 100}}</div>
-                    <div style="text-align: right;">
-                        <a class="" v-link="{path:'/detail',activeClass:'router-active',exact: true}">
-                            <i class="fa fa-chevron-right"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="change">
-                    <div style="text-align: left;">兑换</div>
-                    <div style="text-align: right;">
+                    <div>{{auth.user.qb || 100}} Q币</div>
+                    <div>
                         <a class="" v-link="{path:'/exchange',activeClass:'router-active',exact: true}">
-                            <i class="fa fa-chevron-right"></i>
+                            兑换
                         </a>
                     </div>
                 </div>
+                <!--<div class="score">-->
+                    <!--<div style="text-align: left;">积分</div>-->
+                    <!--<div>{{auth.user.score || 100}}</div>-->
+                    <!--<div style="text-align: right;">-->
+                        <!--<a class="" v-link="{path:'/detail',activeClass:'router-active',exact: true}">-->
+                            <!--<i class="fa fa-chevron-right"></i>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="change">-->
+                    <!--<div style="text-align: left;">兑换</div>-->
+                    <!--<div style="text-align: right;">-->
+                        <!--<a class="" v-link="{path:'/exchange',activeClass:'router-active',exact: true}">-->
+                            <!--<i class="fa fa-chevron-right"></i>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
 
             <div class="ranklist-container">
+                <div class="ranklist-header">
+                    好友排名
+                </div>
                 <div class="rankitem">
-                    <div>排名</div>
+                    <div>名次</div>
                     <div>昵称</div>
                     <div>积分</div>
                 </div>
-                <div v-for="item in rankList" class="rankitem">
-                    <div>{{item.rank}}</div>
-                    <div>{{item.nickname}}</div>
-                    <div>{{item.score}}</div>
+                <div style="height: 234px;overflow: auto;">
+                    <div v-for="item in rankList" class="rankitem">
+                        <div>{{item.rank}}</div>
+                        <div>{{item.nickname}}</div>
+                        <div>{{item.score}}</div>
+                    </div>
+                </div>
+                <div class="logout-btn">
+                    <a href="javascript:;" @click="logout" title="退出登录">
+                        退出登录
+                    </a>
                 </div>
             </div>
         </div>
@@ -170,10 +191,10 @@
         top: 0;
         bottom: 0;
         margin: auto 0;
-        font-size: 36px;
         line-height: 50px;
         color: #FFFAFF;
-        width: 26px;
+        width: 44px;
+        font-size: 14px;
     }
 
     input[node-type=jsbridge]{

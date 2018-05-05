@@ -14,19 +14,22 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <!--<div class="input-group-addon"><i class="fa fa-envelope-o"></i></div>-->
-                                            <input v-model="user.OpenID"
+                                            <input style="color: #ffffff;" v-model="user.OpenID" v-validate:OpenID="{required:true}"
                                                    class="form-control" placeholder="账号">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <!--<div class="input-group-addon"><i class="fa fa-unlock-alt"></i></div>-->
-                                            <input v-model="user.Password" v-validate:password="{required:true}"
+                                            <input style="color: #ffffff;" v-model="user.Password" v-validate:password="{required:true}"
                                                    class="form-control" :class="[$loginValidation.password.invalid?'ng-invalid':'ng-valid']" placeholder="密码">
                                         </div>
                                     </div>
                                     <div class="actions-container">
                                         <!--<Sns-login item="qq"></Sns-login>-->
+                                        <a class="signup-btn" v-link="{path:'/signup',activeClass:'router-active',exact: true}">
+                                            注册
+                                        </a>
                                         <button class="btn btn-primary" type="submit" id="login-btn" :disabled="$loginValidation.invalid">登录</button>
                                     </div>
                                     <!--<div class="form-group">-->
@@ -46,6 +49,15 @@
 
 </template>
 <style>
+    .signup-btn {
+        color: #fff;
+        /* background-color: #50a089; */
+        /* border-color: #4BB283; */
+        border: none;
+        padding: 6px 12px;
+        font-size: 18px;
+        vertical-align: middle;
+    }
     .login-icon {
         vertical-align: middle;
         position: absolute;
