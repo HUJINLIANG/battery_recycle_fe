@@ -70,13 +70,13 @@
                         success: function (result) {
                             //操作电池内容dom
                             var score = 0;
-                            for (var i = 0 ;i < result.data.length; i++) {
+                            for (let i = 0 ;i < result.data.length; i++) {
                                 var num = result.data[i].batteryName[0];
                                 if (isNaN(num)) {
                                     num = 8;
                                 }
                                 $('#battery' + num).html(result.data[i].batteryNum + '个');
-                                switch (num){
+                                switch (Number(num)){
                                     case 0:
                                         score += (50*result.data[i].batteryNum);
                                         break;
