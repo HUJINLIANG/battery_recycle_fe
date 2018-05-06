@@ -29,6 +29,10 @@ export default function(router){
             name:'signup',
             component:require('./components/signup/index.vue')
         },
+        '/nearby':{
+            name:'nearby',
+            component:require('./components/nearby/index.vue')
+        },
         '*': {
             name:'nofound',
             component:require('./components/NotFound.vue')

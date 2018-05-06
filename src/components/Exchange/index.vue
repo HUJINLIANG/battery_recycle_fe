@@ -31,7 +31,7 @@
                         <div>本次兑换</div>
                         <div>
                             <i @click="minus" class="minus fa fa-minus"></i>
-                            <span class="qbNum">{{qbNum}}</span>
+                            <span class="qbNum">{{qbNum}}</span>QB
                             <i @click="add" class="add fa fa-plus"></i>
                         </div>
                     </div>
@@ -44,19 +44,11 @@
     </div>
 </template>
 <style>
-    /*body{*/
-    /*background-color:#ff0000;*/
-    /*}*/
-    /*.vue-toast-manager_container.\--right .vue-toast_container {*/
-        /*right: 136px;*/
-    /*}*/
-    /*.vue-toast-manager_container.\--top .vue-toast_container {*/
-        /*top: 320px;*/
-    /*}*/
+
 </style>
 <script>
 
-    import {getUserInfo,getNoteList,deleteNote,balanceChange, showMsg} from '../../vuex/actions'
+    import {getUserInfo,balanceChange, showMsg} from '../../vuex/actions'
     import defaultAvatar from '../../assets/images/userimg.png'
 
     export default{

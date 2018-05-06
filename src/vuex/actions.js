@@ -12,39 +12,20 @@ export const localLogin = (store,userInfo) => {
         type: 'post',
         data: userInfo,
         success: function (response) {
-            if(!response.result === 'ok'){
+            if(response.result !== 'ok'){
                 return showMsg(store,response.msg || '登录失败')
             }
             const token = response.cookie;
             saveCookie('token',token);
-            getUserInfo(store)
             store.dispatch(types.LOGIN_SUCCESS,{token:token});
             showMsg(store,'登录成功','success');
             store.router.go({path:'/'})
         },
         error: function (error) {
             console.log(error)
-            return showMsg(store,error.data.error_msg || '登录失败')
+            return showMsg(store,error.error_msg || '登录失败')
         }
     })
-
-
-
-    // api.localLogin(userInfo).then(response => {
-    //     if(!response.result === 'ok'){
-    //         return showMsg(store,response.msg || '登录失败')
-    //     }
-    //     const token = response.cookie;
-    //     saveCookie('token',token);
-    //     getUserInfo(store)
-    //     store.dispatch(types.LOGIN_SUCCESS,{token:token});
-    //     showMsg(store,'登录成功','success');
-    //     store.router.go({path:'/'})
-    //
-    // }).catch(error => {
-    //     console.log(error)
-    //     return showMsg(store,error.data.error_msg || '登录失败')
-    // })
 }
 
 export const signup = (store,userInfo) => {
@@ -53,13 +34,12 @@ export const signup = (store,userInfo) => {
         type: 'post',
         data: userInfo,
         success: function (response) {
-            if(!response.result === 'ok'){
+            if(response.result !== 'ok'){
                 return showMsg(store,response.msg || '注册失败')
             }
             showMsg(store,'注册成功','success');
             const token = response.cookie;
             saveCookie('token',token);
-            getUserInfo(store)
             store.dispatch(types.LOGIN_SUCCESS,{token:token});
 
             store.router.go({path:'/'})
@@ -87,7 +67,7 @@ export const hideMsg = ({dispatch}) => {
     dispatch(types.HIDE_MSG)
 }
 
-export const getUserInfo = ({dispatch},userInfo) => {
+export const getUserInfo = (store,userInfo) => {
     $.ajax({
         url: API_ROOT + '/getUserInfo/',
         type: 'post',
@@ -97,53 +77,49 @@ export const getUserInfo = ({dispatch},userInfo) => {
                 console.log('获取信息失败')
                 return ;
             }
-            dispatch(types.USERINFO_SUCCESS,{user:response})
+            store.dispatch(types.USERINFO_SUCCESS,{user:response})
         },
         error: function (error) {
-            showMsg('获取用户资料失败')
+            showMsg(store,'获取用户资料失败')
         }
     })
-    // api.getMe(userInfo).then(response => {
-    //     if(!response.result === 'ok'){
-    //         console.log('获取信息失败')
-    //     }
-    //     dispatch(types.USERINFO_SUCCESS,{user:response})
-    // }).catch(response => {
-    //     console.log('获取用户资料失败')
-    // })
 }
 
-export const getRankList = ({dispatch}) => {
+export const getRankList = (store) => {
     $.ajax({
         url: API_ROOT + '/getRankingList/',
         type: 'get',
         success: function (response) {
             const json = response.data;
-            dispatch(types.RANK_LIST,{data:json})
+            store.dispatch(types.RANK_LIST,{data:json})
+            var user = store.state['auth'].user.nickName;
+            for (let i = 0;i < json.length ;i++) {
+                if (user === json[i].nickName) {
+                    store.dispatch(types.RANK_ME,{
+                        rank : i + 1,
+                        totalbalance:  json[i].totalBalance
+                    })
+                    return ;
+                }
+            }
         },
         error: function (error) {
-            showMsg('获取排名失败')
+            showMsg(store,'获取排名失败')
         }
     })
-    // api.getRankList().then(response => {
-    //     const json = response.data;
-    //     dispatch(types.RANK_LIST,{data:json})
-    // }).catch(response => {
-    //     console.log('获取排名失败')
-    // })
 }
 
-export const getBalanceDetail = ({dispatch},userInfo) => {
+export const getBalanceDetail = (store,userInfo) => {
     $.ajax({
         url: API_ROOT + '/getBalanceDetail/',
         type: 'post',
         data: userInfo,
         success: function (response) {
             const json = response.data;
-            dispatch(types.BALANCE_DETAIL,{data:json})
+            store.dispatch(types.BALANCE_DETAIL,{data:json})
         },
         error: function (error) {
-            showMsg('获取积分明细失败')
+            showMsg(store,'获取积分明细失败')
         }
     })
     // api.getBalanceDetail(userInfo).then(response => {
@@ -160,7 +136,7 @@ export const balanceChange = (store,changeInfo) => {
         type: 'post',
         data: changeInfo,
         success: function (response) {
-            if(!response.result === 'ok'){
+            if(response.result !== 'ok'){
                 return showMsg(store,response.msg || '兑换失败')
             }
             showMsg(store,'兑换成功','success');
@@ -170,15 +146,6 @@ export const balanceChange = (store,changeInfo) => {
             return showMsg(store,error.msg || '网络出错')
         }
     })
-    // api.balanceChange(changeInfo).then(response => {
-    //     if(!response.result === 'ok'){
-    //         return showMsg(store,response.msg || '兑换失败')
-    //     }
-    //     showMsg(store,'兑换成功','success');
-    //     store.router.go({path:'/'})
-    // }).catch(response => {
-    //     return showMsg(store,response.msg || '网络出错')
-    // })
 }
 
 export const batteryConfirm = (store,confirmInfo,userInfo) => {
@@ -187,75 +154,18 @@ export const batteryConfirm = (store,confirmInfo,userInfo) => {
         type: 'post',
         data: confirmInfo,
         success: function (response) {
-            if(!response.result === 'ok'){
-                return showMsg(store,'交易失败')
+            if(response.result !== 'ok'){
+                return showMsg(store,'订单无效')
             }
-            showMsg(store,'交易成功','success');
-            if (userInfo) {
-                getUserInfo(store,userInfo)
+            if (confirmInfo.isConfirm) {
+                showMsg(store,'交易成功','success');
+            } else {
+                showMsg(store,'交易已取消','success');
             }
         },
         error: function (error) {
             return showMsg(store,'网络出错')
         }
     })
-    // api.batteryConfirm(confirmInfo).then(response => {
-    //     if(!response.result === 'ok'){
-    //         return showMsg(store,'交易失败')
-    //     }
-    //     showMsg(store,'交易成功','success');
-    //     getUserInfo(store,userInfo)
-    // }).catch(response => {
-    //     return showMsg(store,'网络出错')
-    // })
 }
 
-export const getNoteList = (store) => {
-    api.getNoteList().then(response => {
-        const json = response.data;
-        store.dispatch(types.NOTE_LIST,{data:json.data})
-    }).catch(response => {
-        console.log('获取note列表错误')
-    })
-}
-
-export const getNoteDetail = (store,id) => {
-    
-
-    
-    api.getNoteDetail(id).then(response => {
-        
-        store.dispatch(types.NOTE_DETAIL,{data:response.data.data})
-    }).catch(response => {
-        
-        showMsg(store,response.data.error_msg || '获取失败')
-    })
-}
-
-export const addNote = (store,data) =>{
-    api.addNote(data).then(response => {
-        store.dispatch(types.ADD_NOTE,{data:response.data.data})
-        showMsg(store,'添加成功','success');
-        store.router.go({name:'home'})
-    }).catch(response => {
-        showMsg(store,response.data.error_msg || '添加失败')
-    })
-}
-
-export const updateNote = (store,data) => {
-    api.updateNote(data).then(response => {
-        store.dispatch(types.UPDATE_NOTE,{data:response.data.data})
-        store.router.go({name:'home'});
-        showMsg(store,'更新成功','success');
-    }).catch(response => {
-        showMsg(store,response.data.error_msg || '获取失败')
-    })
-}
-
-export const deleteNote = (store,id,index) => {
-    api.deleteNote(id).then(response => {
-        store.dispatch(types.DELETE_NOTE,{index:index})
-    }).catch(response => {
-        showMsg(store,response.data.error_msg || '删除失败')
-    })
-}

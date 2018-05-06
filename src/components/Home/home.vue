@@ -2,22 +2,15 @@
     <div class="out-container">
         <div class="wrap-container">
             <div class="navbar">
-                <!--<span class="title" style="font-weight:bold; color: #FFFAFF">LE RECYCLE</span>-->
-                <!--<a class="add" @click="addNote">-->
-                    <!--<i class="fa fa-qrcode"></i>-->
-                <!--</a>-->
                 <div class="qr-btn" node-type="qr-btn">
                     扫一扫
                     <input node-type="jsbridge" type="file" name="myPhoto" value="扫描二维码1" />
                 </div>
                 <div class="result-qrcode" style="display: none;">
                 </div>
-                <!--<a class="avatar" href="javascript:;" :title="auth.user.nickname">-->
-                    <!--<img :src="auth.user.avatar || defaultAvatar">-->
-                <!--</a>-->
-                <!--<a class="logout" href="javascript:;" @click="logout" title="退出登录">-->
-                    <!--<i class="fa fa-sign-out"></i>-->
-                <!--</a>-->
+                <a style="line-height: 49px;color: #FFFAFF; width: 44px;font-size: 14px;text-align: center;" v-link="{path:'/nearby',activeClass:'router-active',exact: true}">
+                    附近站点
+                </a>
                 <div class="score-detail">
                     <a class="" v-link="{path:'/detail',activeClass:'router-active',exact: true}">
                         积分明细
@@ -32,10 +25,6 @@
                 <div class="exchange-nickname">
                     {{auth.user.nickName || '匿名'}}
                 </div>
-                <!--<div class="nickname">-->
-                    <!--<div>昵称</div>-->
-                    <!--<div>{{auth.user.nickname || 'hjl'}}</div>-->
-                <!--</div>-->
                 <div class="qb">
                     <div>{{auth.user.qb}} Q币</div>
                     <div>
@@ -44,33 +33,16 @@
                         </a>
                     </div>
                 </div>
-                <!--<div class="score">-->
-                    <!--<div style="text-align: left;">积分</div>-->
-                    <!--<div>{{auth.user.score || 100}}</div>-->
-                    <!--<div style="text-align: right;">-->
-                        <!--<a class="" v-link="{path:'/detail',activeClass:'router-active',exact: true}">-->
-                            <!--<i class="fa fa-chevron-right"></i>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="change">-->
-                    <!--<div style="text-align: left;">兑换</div>-->
-                    <!--<div style="text-align: right;">-->
-                        <!--<a class="" v-link="{path:'/exchange',activeClass:'router-active',exact: true}">-->
-                            <!--<i class="fa fa-chevron-right"></i>-->
-                        <!--</a>-->
-                    <!--</div>-->
-                <!--</div>-->
             </div>
 
             <div class="ranklist-container">
                 <div class="ranklist-header">
-                    好友排名
+                    排行榜
                 </div>
-                <div class="rankitem">
-                    <div>名次</div>
-                    <div>昵称</div>
-                    <div>积分</div>
+                <div class="rankitem rank-head">
+                    <div>{{auth.rank.rank}}</div>
+                    <div>{{auth.user.nickName}}</div>
+                    <div>{{auth.rank.totalbalance}}</div>
                 </div>
                 <div style="height: 200px;overflow: auto;">
                     <div v-for="(index,item) in rankList" class="rankitem">
@@ -92,7 +64,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
                         <h4 style="font-size: 15px;" class="modal-title" id="myModalLabel">您好，感谢您本次为环保事业做出的贡献！本次您投放的电池数量为：</h4>
                     </div>
                     <div class="modal-body">
@@ -101,35 +73,42 @@
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">0号电池</div>
-                            <div id="battery0">5个</div>
+                            <div id="battery0">0个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">1号电池</div>
-                            <div id="battery1">5个</div>
+                            <div id="battery1">0个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">5号电池</div>
-                            <div id="battery5">5个</div>
+                            <div id="battery5">0个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-battery"></i>
                             </div>
                             <div class="battery-type">7号电池</div>
-                            <div id="battery7">5个</div>
+                            <div id="battery7">0个</div>
                         </div>
                         <div class="batteryinfo">
                             <div>
                                 <i class="fa fa-circle"></i>
                             </div>
                             <div class="battery-type">纽扣电池</div>
-                            <div id="battery4">5个</div>
+                            <div id="battery8">0个</div>
+                        </div>
+                        <div class="batteryinfo">
+                            <div>
+                                <i class="fa fa-btc"></i>
+                            </div>
+                            <div class="battery-type">可兑换积分</div>
+                            <div id="score">0</div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -237,18 +216,23 @@
             cancel(){
                 this.batteryConfirm({
                     cookie: this.auth.token,
-                    orderID: this.ordId,
-                    isConfirm: false
+                    orderID: $('.result-qrcode').html(),
+                    isConfirm: 0
                 })
-                $('#myModal').modal('hide');
+                setTimeout(function () {
+                    location.reload();
+                },500)
+
             },
             done(){
                 this.batteryConfirm({
                     cookie: this.auth.token,
-                    orderID: this.ordId,
-                    isConfirm: true
+                    orderID: $('.result-qrcode').html(),
+                    isConfirm: 1
                 },{cookie:this.auth.token})
-                $('#myModal').modal('hide');
+                setTimeout(function () {
+                    location.reload();
+                },500)
             },
             show() {
                 $('#myModal').modal({

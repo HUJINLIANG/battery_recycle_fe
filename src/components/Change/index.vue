@@ -15,15 +15,16 @@
                     <div style="flex: 2;">{{item.time | time}}</div>
                     <div>{{item.change}}</div>
                 </div>
+                <div style="text-align: center;padding-top: 200px;" v-if="!detailList.length">
+                    暂无积分兑换信息
+                </div>
             </div>
         </div>
 
     </div>
 </template>
 <style>
-    /*body{*/
-    /*background-color:#ff0000;*/
-    /*}*/
+
 </style>
 <script>
 

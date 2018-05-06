@@ -62,13 +62,40 @@
                     $('.result-qrcode').html(data);
                     $.ajax({
                         type: 'POST',
-                        url: 'http://119.29.0.196:80/2018_recycle_mini_api/orderDetail',
+                        url: 'http://119.29.0.196:80/2018_recycle_mini_api/orderDetail/',
                         data: {
                             orderID: data,
                             cookie : $('.cookie').html().trim()
                         },
                         success: function (result) {
-                            //todo 操作电池内容dom
+                            //操作电池内容dom
+                            var score = 0;
+                            for (var i = 0 ;i < result.data.length; i++) {
+                                var num = result.data[i].batteryName[0];
+                                if (isNaN(num)) {
+                                    num = 8;
+                                }
+                                $('#battery' + num).html(result.data[i].batteryNum + '个');
+                                switch (num){
+                                    case 0:
+                                        score += (50*result.data[i].batteryNum);
+                                        break;
+                                    case 1:
+                                        score += (40*result.data[i].batteryNum);
+                                        break;
+                                    case 5:
+                                        score += (20*result.data[i].batteryNum);
+                                        break;
+                                    case 7:
+                                        score += (10*result.data[i].batteryNum);
+                                        break;
+                                    case 8:
+                                        score += (10*result.data[i].batteryNum);
+                                        break;
+                                }
+
+                            }
+                            $('#score').html(score);
                             $('#myModal').modal({
                                 backdrop:'static'
                             })

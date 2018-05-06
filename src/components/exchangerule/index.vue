@@ -30,19 +30,20 @@
                     <div>纽扣电池</div>
                     <div>10分/节</div>
                 </div>
+
+                <div  class="detail-item">
+                    <div>QB</div>
+                    <div>100分/个</div>
+                </div>
             </div>
         </div>
 
     </div>
 </template>
 <style>
-    /*body{*/
-    /*background-color:#ff0000;*/
-    /*}*/
+
 </style>
 <script>
-
-
     export default{
         vuex:{
             getters:{
