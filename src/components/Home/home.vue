@@ -8,7 +8,7 @@
                 </div>
                 <div class="result-qrcode" style="display: none;">
                 </div>
-                <a style="line-height: 49px;color: #FFFAFF; width: 44px;font-size: 14px;text-align: center;" v-link="{path:'/nearby',activeClass:'router-active',exact: true}">
+                <a style="line-height: 50px;color: #FFFAFF; width: 44px;font-size: 14px;text-align: center;" v-link="{path:'/nearby',activeClass:'router-active',exact: true}">
                     附近站点
                 </a>
                 <div class="score-detail">
@@ -39,7 +39,7 @@
                 <div class="ranklist-header">
                     排行榜
                 </div>
-                <div class="rankitem rank-head">
+                <div style="border-bottom:5px solid #4BB283" class="rankitem rank-head">
                     <div>{{auth.rank.rank}}</div>
                     <div>{{auth.user.nickName}}</div>
                     <div>{{auth.rank.totalbalance}}</div>
@@ -170,7 +170,7 @@
         top: 0;
         bottom: 0;
         margin: auto 0;
-        line-height: 50px;
+        line-height: 49px;
         color: #FFFAFF;
         width: 44px;
         font-size: 14px;
